@@ -1,11 +1,11 @@
-package br.com.filla.filla_api.domain.medico;
+package br.com.filla.filla_api.domain.employee;
 
+import br.com.filla.filla_api.domain.endereco.AddressDtoCreate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import br.com.filla.filla_api.domain.endereco.EnderecoDtoCreate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +15,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedicoDtoCreate {
+public class EmployeeDtoCreate {
 
   @NotBlank(message = "{nome.obrigatorio}")
-  private String nome;
+  private String name;
 
   @NotBlank
   @Email
@@ -26,17 +26,17 @@ public class MedicoDtoCreate {
 
   @NotBlank
   @Pattern(regexp = "\\d{11}")
-  private String telefone;
+  private String phone;
   
   @NotBlank
   @Pattern(regexp = "\\d{4,6}")
-  private String crm;
+  private String enrollment;
 
   @NotNull
-  private Especialidade especialidade;
+  private Service service;
 
   @NotNull
   @Valid
-  private EnderecoDtoCreate endereco;
+  private AddressDtoCreate address;
 
 }

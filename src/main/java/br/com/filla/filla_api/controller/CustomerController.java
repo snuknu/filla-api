@@ -14,58 +14,58 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+import br.com.filla.filla_api.domain.customer.Customer;
+import br.com.filla.filla_api.domain.customer.CustomerDtoCreate;
+import br.com.filla.filla_api.domain.customer.CustomerDtoRead;
+import br.com.filla.filla_api.domain.customer.CustomerDtoReadShort;
+import br.com.filla.filla_api.domain.customer.CustomerDtoUpdate;
+import br.com.filla.filla_api.domain.customer.CustomerRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import br.com.filla.filla_api.domain.paciente.Paciente;
-import br.com.filla.filla_api.domain.paciente.PacienteDtoCreate;
-import br.com.filla.filla_api.domain.paciente.PacienteDtoRead;
-import br.com.filla.filla_api.domain.paciente.PacienteDtoReadShort;
-import br.com.filla.filla_api.domain.paciente.PacienteDtoUpdate;
-import br.com.filla.filla_api.domain.paciente.PacienteRepository;
 
 @RestController
-@RequestMapping("pacientes")
-public class PacienteController {
+@RequestMapping("customer")
+public class CustomerController {
 
   @Autowired
-  private PacienteRepository repository;
+  private CustomerRepository repository;
 
   @PostMapping
   @Transactional
-  public ResponseEntity<PacienteDtoRead> create(@RequestBody @Valid PacienteDtoCreate dto,
+  public ResponseEntity<CustomerDtoRead> create(@RequestBody @Valid CustomerDtoCreate dto,
       UriComponentsBuilder uriBuilder) {
-    var entity = new Paciente(dto);
+    var entity = new Customer(dto);
     repository.save(entity);
     var uri = uriBuilder.path("pacientes/{id}").buildAndExpand(entity.getId()).toUri();
-    return ResponseEntity.created(uri).body(new PacienteDtoRead(entity));
+    return ResponseEntity.created(uri).body(new CustomerDtoRead(entity));
 
   }
 
   @GetMapping
-  public ResponseEntity<Page<PacienteDtoRead>> read(Pageable pageable) {
-    var page = repository.findAll(pageable).map(PacienteDtoRead::new);
+  public ResponseEntity<Page<CustomerDtoRead>> read(Pageable pageable) {
+    var page = repository.findAll(pageable).map(CustomerDtoRead::new);
     return ResponseEntity.ok(page);
   }
 
   @GetMapping(path = "/short")
-  public ResponseEntity<Page<PacienteDtoReadShort>> readShort(
+  public ResponseEntity<Page<CustomerDtoReadShort>> readShort(
       @PageableDefault(size = 6, page = 0, sort = {"id"}) Pageable pageable) {
-    var page = repository.findAllByActiveTrue(pageable).map(PacienteDtoReadShort::new);
+    var page = repository.findAllByActiveTrue(pageable).map(CustomerDtoReadShort::new);
     return ResponseEntity.ok(page);
   }
 
   @GetMapping(path = "/{id}")
-  public ResponseEntity<PacienteDtoRead> readDetail(@PathVariable Long id) {
+  public ResponseEntity<CustomerDtoRead> readDetail(@PathVariable Long id) {
     var entity = repository.getReferenceById(id);
-    return ResponseEntity.ok(new PacienteDtoRead(entity));
+    return ResponseEntity.ok(new CustomerDtoRead(entity));
   }
   
   @PutMapping
   @Transactional
-  public ResponseEntity<PacienteDtoRead> update(@RequestBody @Valid PacienteDtoUpdate dto) {
+  public ResponseEntity<CustomerDtoRead> update(@RequestBody @Valid CustomerDtoUpdate dto) {
     var entity = repository.getReferenceById(dto.getId());
     entity.update(dto);
-    return ResponseEntity.ok(new PacienteDtoRead(entity));
+    return ResponseEntity.ok(new CustomerDtoRead(entity));
   }
 
   @DeleteMapping("/{id}")

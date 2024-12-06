@@ -1,6 +1,7 @@
-package br.com.filla.filla_api.domain.paciente;
+package br.com.filla.filla_api.domain.customer;
 
 import java.util.Optional;
+import br.com.filla.filla_api.domain.endereco.Address;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
-import br.com.filla.filla_api.domain.endereco.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,36 +20,34 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "Paciente")
-@Table(name = "pacientes")
-public class Paciente {
+@Entity(name = "Customer")
+@Table(name = "customer")
+public class Customer {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String nome;
+  private String name;
   private String email;
-  private String telefone;
-  private String cpf;
+  private String phone;
 
   @Embedded
-  private Endereco endereco;
+  private Address address;
 
   private Boolean active;
 
-  public Paciente(PacienteDtoCreate dto) {
+  public Customer(CustomerDtoCreate dto) {
     this.active = Boolean.TRUE;
-    this.nome = dto.getNome();
+    this.name = dto.getName();
     this.email = dto.getEmail();
-    this.telefone = dto.getTelefone();
-    this.cpf = dto.getEmail();
-    this.endereco = new Endereco(dto.getEndereco());
+    this.phone = dto.getPhone();
+    this.address = new Address(dto.getAddress());
   }
 
-  public void update(@Valid PacienteDtoUpdate dto) {
-    Optional.ofNullable(dto.getNome()).ifPresent(value -> this.nome = value);
-    Optional.ofNullable(dto.getTelefone()).ifPresent(value -> this.telefone = value);
-    Optional.ofNullable(dto.getEndereco()).ifPresent(value -> this.endereco.update(value));
+  public void update(@Valid CustomerDtoUpdate dto) {
+    Optional.ofNullable(dto.getName()).ifPresent(value -> this.name = value);
+    Optional.ofNullable(dto.getPhone()).ifPresent(value -> this.phone = value);
+    Optional.ofNullable(dto.getAddress()).ifPresent(value -> this.address.update(value));
   }
 
   public void disable() {

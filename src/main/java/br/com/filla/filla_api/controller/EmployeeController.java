@@ -14,57 +14,57 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+import br.com.filla.filla_api.domain.employee.Employee;
+import br.com.filla.filla_api.domain.employee.EmployeeDtoCreate;
+import br.com.filla.filla_api.domain.employee.EmployeeDtoRead;
+import br.com.filla.filla_api.domain.employee.EmployeeDtoReadShort;
+import br.com.filla.filla_api.domain.employee.EmployeeDtoUpdate;
+import br.com.filla.filla_api.domain.employee.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import br.com.filla.filla_api.domain.medico.Medico;
-import br.com.filla.filla_api.domain.medico.MedicoDtoCreate;
-import br.com.filla.filla_api.domain.medico.MedicoDtoRead;
-import br.com.filla.filla_api.domain.medico.MedicoDtoReadShort;
-import br.com.filla.filla_api.domain.medico.MedicoDtoUpdate;
-import br.com.filla.filla_api.domain.medico.MedicoRepository;
 
 @RestController
-@RequestMapping("medicos")
-public class MedicoController {
+@RequestMapping("employee")
+public class EmployeeController {
 
   @Autowired
-  private MedicoRepository repository;
+  private EmployeeRepository repository;
 
   @PostMapping
   @Transactional
-  public ResponseEntity<MedicoDtoRead> create(@RequestBody @Valid MedicoDtoCreate dto,
+  public ResponseEntity<EmployeeDtoRead> create(@RequestBody @Valid EmployeeDtoCreate dto,
       UriComponentsBuilder uriBuilder) {
-    var entity = new Medico(dto);
+    var entity = new Employee(dto);
     repository.save(entity);
     var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(entity.getId()).toUri();
-    return ResponseEntity.created(uri).body(new MedicoDtoRead(entity));
+    return ResponseEntity.created(uri).body(new EmployeeDtoRead(entity));
   }
 
   @GetMapping
-  public ResponseEntity<Page<MedicoDtoRead>> read(Pageable pageable) {
-    var page = repository.findAll(pageable).map(MedicoDtoRead::new);
+  public ResponseEntity<Page<EmployeeDtoRead>> read(Pageable pageable) {
+    var page = repository.findAll(pageable).map(EmployeeDtoRead::new);
     return ResponseEntity.ok(page);
   }
 
   @GetMapping(path = "/short")
-  public ResponseEntity<Page<MedicoDtoReadShort>> readShort(
+  public ResponseEntity<Page<EmployeeDtoReadShort>> readShort(
       @PageableDefault(size = 6, page = 0, sort = {"id"}) Pageable pageable) {
-    var page = repository.findAllByActiveTrue(pageable).map(MedicoDtoReadShort::new);
+    var page = repository.findAllByActiveTrue(pageable).map(EmployeeDtoReadShort::new);
     return ResponseEntity.ok(page);
   }
 
   @GetMapping(path = "/{id}")
-  public ResponseEntity<MedicoDtoRead> read(@PathVariable Long id){
+  public ResponseEntity<EmployeeDtoRead> read(@PathVariable Long id){
     var entity = repository.getReferenceById(id);
-    return ResponseEntity.ok(new MedicoDtoRead(entity));
+    return ResponseEntity.ok(new EmployeeDtoRead(entity));
   }
   
   @PutMapping
   @Transactional
-  public ResponseEntity<MedicoDtoRead> update(@RequestBody @Valid MedicoDtoUpdate dto) {
+  public ResponseEntity<EmployeeDtoRead> update(@RequestBody @Valid EmployeeDtoUpdate dto) {
     var entity = repository.getReferenceById(dto.getId());
     entity.update(dto);
-    return ResponseEntity.ok(new MedicoDtoRead(entity));
+    return ResponseEntity.ok(new EmployeeDtoRead(entity));
   }
 
   @DeleteMapping("/{id}")

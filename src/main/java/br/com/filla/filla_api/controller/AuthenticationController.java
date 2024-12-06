@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import jakarta.validation.Valid;
+import br.com.filla.filla_api.config.security.TokenJwtDtoRead;
 import br.com.filla.filla_api.config.security.TokenManagerService;
 import br.com.filla.filla_api.domain.account.Account;
-import br.com.filla.filla_api.domain.account.AccountDtoCreate;
-import br.com.filla.filla_api.config.security.TokenJwtDtoRead;
+import br.com.filla.filla_api.domain.account.AccountDtoUpdate;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/login")
@@ -25,7 +25,7 @@ public class AuthenticationController {
   private TokenManagerService tokenService;
 
   @PostMapping
-  public ResponseEntity<TokenJwtDtoRead> login(@RequestBody @Valid AccountDtoCreate account) {
+  public ResponseEntity<TokenJwtDtoRead> login(@RequestBody @Valid AccountDtoUpdate account) {
 
     var authenticationToken = new UsernamePasswordAuthenticationToken(
         account.getUsername(),

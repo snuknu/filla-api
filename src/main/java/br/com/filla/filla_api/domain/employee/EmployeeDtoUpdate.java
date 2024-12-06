@@ -1,8 +1,8 @@
-package br.com.filla.filla_api.domain.medico;
+package br.com.filla.filla_api.domain.employee;
 
+import br.com.filla.filla_api.domain.endereco.AddressDtoUpdate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import br.com.filla.filla_api.domain.endereco.EnderecoDtoUpdate;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,15 +12,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MedicoDtoUpdate {
+public class EmployeeDtoUpdate {
 
   @NotNull
   private Long id;
 
-  private String nome;
-  private String telefone;
+  private String name;
+  private String phone;
 
   @Valid
-  private EnderecoDtoUpdate endereco;
+  private AddressDtoUpdate address;
 
 }

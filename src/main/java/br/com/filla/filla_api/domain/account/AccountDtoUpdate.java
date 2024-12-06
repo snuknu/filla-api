@@ -6,16 +6,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AccountDtoUpdate {
-  
+
   @NotBlank
   private String username;
-  
+
   @NotBlank
   private String password;
-  
+
 }

@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.paciente;
+package br.com.filla.filla_api.domain.customer;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,18 +9,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PacienteDtoReadShort {
+public class CustomerDtoReadShort {
 
   private Long id;
-  private String nome;
+  private String name;
   private String email;
-  private String cpf;
 
-  public PacienteDtoReadShort(Paciente entity) {
+  public CustomerDtoReadShort(Customer entity) {
     this.id = entity.getId();
-    this.nome = entity.getNome();
+    this.name = entity.getName();
     this.email = entity.getEmail();
-    this.cpf = entity.getCpf();
   }
 
 }
