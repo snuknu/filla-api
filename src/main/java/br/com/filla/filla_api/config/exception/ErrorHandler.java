@@ -65,6 +65,13 @@ public class ErrorHandler {
         .body(new ErrorDto(ex.getLocalizedMessage()));
   }
 
+  @ExceptionHandler(AppointmentValidationException.class)
+  public ResponseEntity<ErrorDto> handleAppointmentValidationException(AppointmentValidationException ex) {
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .body(new ErrorDto(ex.getLocalizedMessage()));
+  }
+  
+  
   private record ArgumentNotValidError(String field, String message) {
     public ArgumentNotValidError(FieldError error) {
       this(error.getField(), error.getDefaultMessage());

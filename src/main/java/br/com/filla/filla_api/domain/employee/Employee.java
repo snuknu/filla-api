@@ -35,7 +35,7 @@ public class Employee {
   private String enrollment;
 
   @Enumerated(EnumType.STRING)
-  private Service service;
+  private ServiceProvided serviceProvided;
 
   @Embedded
   private Address address;
@@ -48,7 +48,7 @@ public class Employee {
     this.email = dto.getEmail();
     this.phone = dto.getPhone();
     this.enrollment = dto.getEnrollment();
-    this.service = dto.getService();
+    this.serviceProvided = dto.getServiceProvided();
     this.address = new Address(dto.getAddress());
   }
 

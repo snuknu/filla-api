@@ -36,7 +36,7 @@ public class EmployeeController {
       UriComponentsBuilder uriBuilder) {
     var entity = new Employee(dto);
     repository.save(entity);
-    var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(entity.getId()).toUri();
+    var uri = uriBuilder.path("/employee/{id}").buildAndExpand(entity.getId()).toUri();
     return ResponseEntity.created(uri).body(new EmployeeDtoRead(entity));
   }
 

@@ -35,3 +35,14 @@ create table customer(
     city varchar(100) not null,
     active boolean not null
 );
+
+create table appointment(
+	id serial primary key,
+  	customer_id bigint not null,
+	employee_id bigint not null,
+	appointment_date timestamp not null,
+	reason_cancellation varchar(100) not null,
+	constraint fk_appointment_customer_id foreign key (customer_id) references customer(id),
+	constraint fk_appointment_employee_id foreign key (employee_id) references employee(id)
+);
+

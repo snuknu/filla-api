@@ -36,7 +36,7 @@ public class CustomerController {
       UriComponentsBuilder uriBuilder) {
     var entity = new Customer(dto);
     repository.save(entity);
-    var uri = uriBuilder.path("pacientes/{id}").buildAndExpand(entity.getId()).toUri();
+    var uri = uriBuilder.path("customer/{id}").buildAndExpand(entity.getId()).toUri();
     return ResponseEntity.created(uri).body(new CustomerDtoRead(entity));
 
   }

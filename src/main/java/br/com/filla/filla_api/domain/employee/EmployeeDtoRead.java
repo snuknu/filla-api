@@ -17,7 +17,7 @@ public class EmployeeDtoRead {
   private String email;
   private String phone;
   private String enrollment;
-  private Service service;
+  private ServiceProvided serviceProvided;
   private AddressDtoRead address;
   private Boolean active;
 
@@ -27,7 +27,7 @@ public class EmployeeDtoRead {
     this.email = entity.getEmail();
     this.phone = entity.getPhone();
     this.enrollment = entity.getEnrollment();
-    this.service = entity.getService();
+    this.serviceProvided = entity.getServiceProvided();
     this.address = new AddressDtoRead(entity.getAddress());
     this.active = entity.getActive();
   }

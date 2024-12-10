@@ -15,14 +15,14 @@ public class EmployeeDtoReadShort {
   private String name;
   private String email;
   private String enrollment;
-  private Service service;
+  private ServiceProvided serviceProvided;
 
   public EmployeeDtoReadShort(Employee entity) {
     this.id = entity.getId();
     this.name = entity.getName();
     this.email = entity.getEmail();
     this.enrollment = entity.getEnrollment();
-    this.service = entity.getService();
+    this.serviceProvided = entity.getServiceProvided();
   }
 
 }

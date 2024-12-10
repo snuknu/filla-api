@@ -33,7 +33,7 @@ public class EmployeeDtoCreate {
   private String enrollment;
 
   @NotNull
-  private Service service;
+  private ServiceProvided serviceProvided;
 
   @NotNull
   @Valid
