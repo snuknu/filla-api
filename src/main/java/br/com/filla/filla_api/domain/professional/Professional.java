@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.employee;
+package br.com.filla.filla_api.domain.professional;
 
 import java.util.Optional;
 import br.com.filla.filla_api.domain.endereco.Address;
@@ -22,9 +22,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "Employee")
-@Table(name = "employee")
-public class Employee {
+@Entity(name = "Professional")
+@Table(name = "professional")
+public class Professional {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Employee {
 
   private Boolean active;
 
-  public Employee(EmployeeDtoCreate dto) {
+  public Professional(ProfessionalDtoCreate dto) {
     this.active = Boolean.TRUE;
     this.name = dto.getName();
     this.email = dto.getEmail();
@@ -52,7 +52,7 @@ public class Employee {
     this.address = new Address(dto.getAddress());
   }
 
-  public void update(@Valid EmployeeDtoUpdate dto) {
+  public void update(@Valid ProfessionalDtoUpdate dto) {
     Optional.ofNullable(dto.getName()).ifPresent(value -> this.name = value);
     Optional.ofNullable(dto.getPhone()).ifPresent(value -> this.phone = value);
     Optional.ofNullable(dto.getAddress()).ifPresent(value -> this.address.update(value));

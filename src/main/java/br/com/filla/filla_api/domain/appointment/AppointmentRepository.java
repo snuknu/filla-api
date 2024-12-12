@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long>{
   
-  List<Appointment> findByEmployeeIdAndAppointmentDateBetweenAndReasonCancellationIsNull(Long employeeId, LocalDateTime startDate, LocalDateTime endDate);
+  List<Appointment> findByProfessionalIdAndAppointmentDateBetweenAndReasonCancellationIsNull(Long professionalId, LocalDateTime startDate, LocalDateTime endDate);
 
 }

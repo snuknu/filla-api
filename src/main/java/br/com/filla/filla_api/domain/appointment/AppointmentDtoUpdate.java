@@ -3,7 +3,7 @@ package br.com.filla.filla_api.domain.appointment;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import br.com.filla.filla_api.domain.employee.ServiceProvided;
+import br.com.filla.filla_api.domain.professional.ServiceProvided;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class AppointmentDtoUpdate {
   @NotNull
   private Long id;
 
-  private Long employeeId;
+  private Long professionalId;
 
   private ServiceProvided serviceProvided;
 

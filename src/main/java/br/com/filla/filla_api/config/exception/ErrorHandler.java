@@ -32,31 +32,31 @@ public class ErrorHandler {
   @ExceptionHandler(JWTCreationException.class)
   public ResponseEntity<ErrorDto> handleError400(JWTCreationException ex) {
     return ResponseEntity.badRequest()
-        .body(new ErrorDto("Token cannot be created"));
+        .body(new ErrorDto("Token cannot be created."));
   }
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   public ResponseEntity<ErrorDto> handleError400(HttpMessageNotReadableException ex) {
     return ResponseEntity.badRequest()
-        .body(new ErrorDto("Token cannot be created"));
+        .body(new ErrorDto("Error reading received data."));
   }
 
   @ExceptionHandler(BadCredentialsException.class)
   public ResponseEntity<ErrorDto> handleErrorBadCredentials() {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-        .body(new ErrorDto("Invalid credentials"));
+        .body(new ErrorDto("Invalid credentials."));
   }
 
   @ExceptionHandler(AuthenticationException.class)
   public ResponseEntity<ErrorDto> handleErrorAuthentication() {
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-        .body(new ErrorDto("Authentication failed"));
+        .body(new ErrorDto("Authentication failed."));
   }
 
   @ExceptionHandler(AccessDeniedException.class)
   public ResponseEntity<ErrorDto> handleErrorDeniedException() {
     return ResponseEntity.status(HttpStatus.FORBIDDEN)
-        .body(new ErrorDto("Access denied"));
+        .body(new ErrorDto("Access denied."));
   }
 
   @ExceptionHandler(Exception.class)

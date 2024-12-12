@@ -1,5 +1,6 @@
-package br.com.filla.filla_api.domain.employee;
+package br.com.filla.filla_api.domain.professional;
 
+import br.com.filla.filla_api.domain.endereco.AddressDtoRead;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,20 +10,26 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDtoReadShort {
+public class ProfessionalDtoRead {
 
   private Long id;
   private String name;
   private String email;
+  private String phone;
   private String enrollment;
   private ServiceProvided serviceProvided;
+  private AddressDtoRead address;
+  private Boolean active;
 
-  public EmployeeDtoReadShort(Employee entity) {
+  public ProfessionalDtoRead(Professional entity) {
     this.id = entity.getId();
     this.name = entity.getName();
     this.email = entity.getEmail();
+    this.phone = entity.getPhone();
     this.enrollment = entity.getEnrollment();
     this.serviceProvided = entity.getServiceProvided();
+    this.address = new AddressDtoRead(entity.getAddress());
+    this.active = entity.getActive();
   }
 
 }

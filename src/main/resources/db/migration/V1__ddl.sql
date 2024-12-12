@@ -4,13 +4,13 @@ create table account(
     password varchar(255) not null
 );
 
-create table employee(
+create table professional(
     id serial primary key,
     name varchar(100) not null,
     email varchar(100) not null unique,
     phone varchar(20) not null,
 	enrollment varchar(6) not null,
-    service varchar(255) not null,
+    service_provided varchar(255) not null,
     street varchar(100) not null,
     district varchar(100) not null,
     zipcode varchar(9) not null,
@@ -39,10 +39,10 @@ create table customer(
 create table appointment(
 	id serial primary key,
   	customer_id bigint not null,
-	employee_id bigint not null,
+	professional_id bigint not null,
 	appointment_date timestamp not null,
-	reason_cancellation varchar(100) not null,
+	reason_cancellation varchar(100) null,
 	constraint fk_appointment_customer_id foreign key (customer_id) references customer(id),
-	constraint fk_appointment_employee_id foreign key (employee_id) references employee(id)
+	constraint fk_appointment_professional_id foreign key (professional_id) references professional(id)
 );
 

@@ -2,7 +2,7 @@ package br.com.filla.filla_api.domain.appointment;
 
 import java.time.LocalDateTime;
 import br.com.filla.filla_api.domain.customer.CustomerDtoReadShort;
-import br.com.filla.filla_api.domain.employee.EmployeeDtoReadShort;
+import br.com.filla.filla_api.domain.professional.ProfessionalDtoReadShort;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,14 +16,14 @@ public class AppointmentDtoRead {
 
   private Long id;
   private CustomerDtoReadShort customer;
-  private EmployeeDtoReadShort employee;
+  private ProfessionalDtoReadShort professional;
   private LocalDateTime appointmentDate;
   private ReasonCancellation reasonCancellation;
 
   public AppointmentDtoRead(Appointment appointment) {
     this.id = appointment.getId();
     this.customer = new CustomerDtoReadShort(appointment.getCustomer());
-    this.employee = new EmployeeDtoReadShort(appointment.getEmployee());
+    this.professional = new ProfessionalDtoReadShort(appointment.getProfessional());
     this.appointmentDate = appointment.getAppointmentDate();
     this.reasonCancellation = appointment.getReasonCancellation();
   }

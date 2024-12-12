@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.employee;
+package br.com.filla.filla_api.domain.professional;
 
 import br.com.filla.filla_api.domain.endereco.AddressDtoUpdate;
 import jakarta.validation.Valid;
@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDtoUpdate {
+public class ProfessionalDtoUpdate {
 
   @NotNull
   private Long id;

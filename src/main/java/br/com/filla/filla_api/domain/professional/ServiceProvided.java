@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.employee;
+package br.com.filla.filla_api.domain.professional;
 
 public enum ServiceProvided {
 

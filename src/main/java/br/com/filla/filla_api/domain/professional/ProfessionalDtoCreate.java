@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.employee;
+package br.com.filla.filla_api.domain.professional;
 
 import br.com.filla.filla_api.domain.endereco.AddressDtoCreate;
 import jakarta.validation.Valid;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDtoCreate {
+public class ProfessionalDtoCreate {
 
   @NotBlank(message = "{nome.obrigatorio}")
   private String name;

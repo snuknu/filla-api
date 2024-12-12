@@ -2,7 +2,7 @@ package br.com.filla.filla_api.domain.appointment;
 
 import java.time.LocalDateTime;
 import br.com.filla.filla_api.domain.customer.Customer;
-import br.com.filla.filla_api.domain.employee.Employee;
+import br.com.filla.filla_api.domain.professional.Professional;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -40,8 +40,8 @@ public class Appointment {
   private Customer customer;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "employee_id")
-  private Employee employee;
+  @JoinColumn(name = "professional_id")
+  private Professional professional;
 
   @Column(name = "appointment_date")
   private LocalDateTime appointmentDate;
