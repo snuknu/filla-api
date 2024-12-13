@@ -1,6 +1,6 @@
 package br.com.filla.filla_api.domain.customer;
 
-import br.com.filla.filla_api.domain.endereco.AddressDtoCreate;
+import br.com.filla.filla_api.domain.address.AddressDtoCreate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

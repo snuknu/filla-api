@@ -1,6 +1,6 @@
 package br.com.filla.filla_api.domain.customer;
 
-import br.com.filla.filla_api.domain.endereco.AddressDtoUpdate;
+import br.com.filla.filla_api.domain.address.AddressDtoUpdate;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

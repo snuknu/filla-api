@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.appointment;
+package br.com.filla.filla_api.domain.scheduling;
 
 import java.time.LocalDateTime;
 import br.com.filla.filla_api.domain.customer.Customer;
@@ -27,9 +27,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Entity(name = "Appointment")
-@Table(name = "appointment")
-public class Appointment {
+@Entity(name = "Scheduling")
+@Table(name = "scheduling")
+public class Scheduling {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,18 +43,16 @@ public class Appointment {
   @JoinColumn(name = "professional_id")
   private Professional professional;
 
-  @Column(name = "appointment_date")
-  private LocalDateTime appointmentDate;
+  @Column(name = "service_date")
+  private LocalDateTime serviceDate;
   
   @Column(name = "reason_cancellation")
   @Enumerated(EnumType.STRING)
   private ReasonCancellation reasonCancellation;
 
-  public Appointment(@Valid AppointmentDtoCreate dto) {
 
-  }
 
-  public void update(@Valid AppointmentDtoUpdate dto) {
+  public void update(@Valid SchedulingDtoUpdate dto) {
 
 
   }

@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.endereco;
+package br.com.filla.filla_api.domain.address;
 
 import java.util.Optional;
 import jakarta.persistence.Embeddable;

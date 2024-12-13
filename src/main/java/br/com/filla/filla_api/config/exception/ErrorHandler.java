@@ -65,8 +65,8 @@ public class ErrorHandler {
         .body(new ErrorDto(ex.getLocalizedMessage()));
   }
 
-  @ExceptionHandler(AppointmentValidationException.class)
-  public ResponseEntity<ErrorDto> handleAppointmentValidationException(AppointmentValidationException ex) {
+  @ExceptionHandler(SchedulingValidationException.class)
+  public ResponseEntity<ErrorDto> handleServiceValidationException(SchedulingValidationException ex) {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
         .body(new ErrorDto(ex.getLocalizedMessage()));
   }

@@ -1,6 +1,5 @@
-package br.com.filla.filla_api.domain.endereco;
+package br.com.filla.filla_api.domain.address;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,28 +10,20 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddressDtoCreate {
-  
-  @NotBlank
+public class AddressDtoUpdate {
+
   private String street;
-  
-  @NotBlank
   private String district;
-  
-  @NotBlank
+
   @Pattern(regexp = "\\d{8}")
   private String zipcode;
-  
-  @NotBlank
+
   private String city;
-  
-  @NotBlank
   private String state;
-  
   private String number;
   private String complement;
 
-  public AddressDtoCreate(Address entity) {
+  public AddressDtoUpdate(Address entity) {
     super();
     this.street = entity.getStreet();
     this.district = entity.getDistrict();
@@ -42,6 +33,6 @@ public class AddressDtoCreate {
     this.number = entity.getNumber();
     this.complement = entity.getComplement();
   }
-  
-  
+
+
 }

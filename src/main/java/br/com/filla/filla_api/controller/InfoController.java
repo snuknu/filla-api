@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.filla.filla_api.domain.info.Info;
+import br.com.filla.filla_api.info.Info;
 
 @RestController
 @RequestMapping("/info")

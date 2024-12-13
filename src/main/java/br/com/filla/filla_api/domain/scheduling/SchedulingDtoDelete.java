@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.appointment;
+package br.com.filla.filla_api.domain.scheduling;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -11,10 +11,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppointmentDtoDelete {
-
-  @NotNull
-  private Long appointmentId;
+public class SchedulingDtoDelete {
 
   @NotNull
   private ReasonCancellation reasonCancellation;

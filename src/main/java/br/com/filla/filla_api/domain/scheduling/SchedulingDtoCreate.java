@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.appointment;
+package br.com.filla.filla_api.domain.scheduling;
 
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonAlias;
@@ -11,23 +11,23 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppointmentDtoUpdate {
+public class SchedulingDtoCreate {
 
   @NotNull
-  private Long id;
+  private Long customerId;
 
   private Long professionalId;
 
   private ServiceProvided serviceProvided;
 
+  @NotNull
   @Future
-  @JsonAlias("appointmentDate")
+  @JsonAlias("serviceDate")
   @JsonFormat(pattern = "dd/MM/yyyy HH:mm")
-  private LocalDateTime appointmentDate;
+  private LocalDateTime serviceDate;
 
 }

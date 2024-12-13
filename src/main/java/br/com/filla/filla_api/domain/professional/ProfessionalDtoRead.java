@@ -1,6 +1,6 @@
 package br.com.filla.filla_api.domain.professional;
 
-import br.com.filla.filla_api.domain.endereco.AddressDtoRead;
+import br.com.filla.filla_api.domain.address.AddressDtoRead;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

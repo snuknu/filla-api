@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.info;
+package br.com.filla.filla_api.info;
 
 import lombok.Getter;
 

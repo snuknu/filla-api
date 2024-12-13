@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.appointment;
+package br.com.filla.filla_api.domain.scheduling;
 
 
 import java.time.LocalDateTime;
@@ -8,16 +8,16 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.com.filla.filla_api.config.exception.AppointmentValidationException;
+import br.com.filla.filla_api.config.exception.SchedulingValidationException;
 import br.com.filla.filla_api.domain.customer.CustomerRepository;
 import br.com.filla.filla_api.domain.professional.Professional;
 import br.com.filla.filla_api.domain.professional.ProfessionalRepository;
 
 @Service
-public class AppointmentService {
+public class SchedulingService {
 
   @Autowired
-  private AppointmentRepository appointmentRepository;
+  private SchedulingRepository schedulingRepository;
 
   @Autowired
   private CustomerRepository customerRepository;
@@ -26,56 +26,59 @@ public class AppointmentService {
   private ProfessionalRepository professionalRepository;
 
 
-  public Appointment schedule(AppointmentDtoCreate dto) throws Exception {
+  public Scheduling schedule(SchedulingDtoCreate dto) throws Exception {
 
     if (!customerRepository.existsById(dto.getCustomerId()))
-      throw new AppointmentValidationException("The customer does not exist!");
+      throw new SchedulingValidationException("The customer does not exist!");
 
     var customer = customerRepository.findById(dto.getCustomerId()).get();
 
     var professional = chooseProfessional(dto);
 
     if (Objects.isNull(professional))
-      throw new AppointmentValidationException("professional does not exist!");
+      throw new SchedulingValidationException("professional does not exist!");
 
-    var appointment = new Appointment(null, customer, professional, dto.getAppointmentDate(), null);
+    var service = new Scheduling(null, customer, professional, dto.getServiceDate(), null);
 
-    appointmentRepository.save(appointment);
+    schedulingRepository.save(service);
 
-    return appointment;
+    return service;
+  }
+
+  public Scheduling reschedule(SchedulingDtoUpdate dto) throws Exception {
+    return schedulingRepository.getReferenceById(dto.getId());
   }
 
 
-  private Professional chooseProfessional(AppointmentDtoCreate dto)
-      throws AppointmentValidationException {
+  private Professional chooseProfessional(SchedulingDtoCreate dto)
+      throws SchedulingValidationException {
 
     if (Objects.nonNull(dto.getProfessionalId())) {
 
-      if (!professionalRepository.existsById(dto.getCustomerId()))
-        throw new AppointmentValidationException("The professional does not exist!");
+      if (!professionalRepository.existsById(dto.getProfessionalId()))
+        throw new SchedulingValidationException("The professional does not exist!");
 
-      if (!hasSchedulingConflict(dto.getProfessionalId(), dto.getAppointmentDate(),
-          dto.getAppointmentDate().plusHours(1)))
+      if (!hasSchedulingConflict(dto.getProfessionalId(), dto.getServiceDate(),
+          dto.getServiceDate().plusHours(1)))
         return professionalRepository.findById(dto.getProfessionalId()).get();
       else
-        throw new AppointmentValidationException("professional does not exist!");
-
+        throw new SchedulingValidationException("Professional not available for the scheduled date!");
     }
 
     if (Objects.isNull(dto.getServiceProvided()))
-      throw new AppointmentValidationException(
+      throw new SchedulingValidationException(
           "The type of service provided is mandatory when the professional is not informed.");
 
     List<Professional> professionals =
         professionalRepository.findByServiceProvidedAndActiveTrue(dto.getServiceProvided());
 
     List<Professional> availableProfessionals = professionals.stream()
-        .filter(item -> !hasSchedulingConflict(item.getId(), dto.getAppointmentDate(),
-            dto.getAppointmentDate().plusHours(1)))
+        .filter(item -> !hasSchedulingConflict(item.getId(), dto.getServiceDate(),
+            dto.getServiceDate().plusMinutes(60)))
         .collect(Collectors.toList());
 
     if (availableProfessionals.isEmpty())
-      throw new AppointmentValidationException(
+      throw new SchedulingValidationException(
           "There are no professionals available for scheduling.");
 
     Random rand = new Random();
@@ -90,8 +93,8 @@ public class AppointmentService {
       LocalDateTime startDate,
       LocalDateTime endDate) {
 
-    return !appointmentRepository
-        .findByProfessionalIdAndAppointmentDateBetweenAndReasonCancellationIsNull(
+    return !schedulingRepository
+        .findByProfessionalIdAndSchedulingDateBetweenAndReasonCancellationIsNull(
             professionalId, startDate, endDate)
         .isEmpty();
   }

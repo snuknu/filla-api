@@ -1,10 +1,10 @@
 package br.com.filla.filla_api.config.exception;
 
-public class AppointmentValidationException extends Exception {
+public class SchedulingValidationException extends Exception {
 
   private static final long serialVersionUID = 1L;
 
-  public AppointmentValidationException(String message) {
+  public SchedulingValidationException(String message) {
     super(message);
   }
 

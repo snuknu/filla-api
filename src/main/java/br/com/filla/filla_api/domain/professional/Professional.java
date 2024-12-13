@@ -1,7 +1,7 @@
 package br.com.filla.filla_api.domain.professional;
 
 import java.util.Optional;
-import br.com.filla.filla_api.domain.endereco.Address;
+import br.com.filla.filla_api.domain.address.Address;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

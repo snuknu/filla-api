@@ -1,4 +1,4 @@
-package br.com.filla.filla_api.domain.appointment;
+package br.com.filla.filla_api.domain.scheduling;
 
 public enum ReasonCancellation {
   CUSTOMER_GAVEUP,
