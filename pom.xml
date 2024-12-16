@@ -10,7 +10,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.filla</groupId>
-	<artifactId>filla-api</artifactId>
+	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>filla-api</name>
 	<description>Reference API for a virtual service queue.</description>

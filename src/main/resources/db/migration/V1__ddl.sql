@@ -36,13 +36,13 @@ create table customer(
     active boolean not null
 );
 
-create table appointment(
+create table scheduling(
 	id serial primary key,
   	customer_id bigint not null,
 	professional_id bigint not null,
-	appointment_date timestamp not null,
+	service_date timestamp not null,
 	reason_cancellation varchar(100) null,
-	constraint fk_appointment_customer_id foreign key (customer_id) references customer(id),
-	constraint fk_appointment_professional_id foreign key (professional_id) references professional(id)
+	constraint fk_scheduling_customer_id foreign key (customer_id) references customer(id),
+	constraint fk_scheduling_professional_id foreign key (professional_id) references professional(id)
 );
 
