@@ -11,7 +11,8 @@ import br.com.filla.api.config.exception.SchedulingValidationException;
 import br.com.filla.api.domain.customer.CustomerRepository;
 import br.com.filla.api.domain.professional.Professional;
 import br.com.filla.api.domain.professional.ProfessionalRepository;
-import br.com.filla.api.domain.scheduling.validations.SchedulingValidator;
+import br.com.filla.api.domain.scheduling.validations.create.SchedulingCreateValidator;
+import br.com.filla.api.domain.scheduling.validations.delete.SchedulingDeleteValidator;
 
 @Service
 public class SchedulingService {
@@ -26,8 +27,10 @@ public class SchedulingService {
   private ProfessionalRepository professionalRepository;
 
   @Autowired
-  private List<SchedulingValidator> schedulingValidators;
+  private List<SchedulingCreateValidator> schedulingCreateValidators;
 
+  @Autowired
+  private List<SchedulingDeleteValidator> schedulingDeleteValidator;
 
   public Scheduling schedule(SchedulingDtoCreate dto) throws Exception {
 
@@ -37,11 +40,15 @@ public class SchedulingService {
     if (dto.getProfessionalId() != null && !professionalRepository.existsById(dto.getCustomerId()))
       throw new SchedulingValidationException("The professional does not exist!");
 
-    schedulingValidators.forEach(v -> {
+    schedulingCreateValidators.forEach(v -> {
       v.validate(dto);
     });
 
     var professional = chooseProfessional(dto);
+
+    if (Objects.isNull(professional))
+      throw new SchedulingValidationException(
+          "There are no professionals available for scheduling.");
 
     var customer = customerRepository.findById(dto.getCustomerId()).get();
 
@@ -52,10 +59,19 @@ public class SchedulingService {
     return scheduling;
   }
 
-  public Scheduling reschedule(SchedulingDtoUpdate dto) throws Exception {
-    return schedulingRepository.getReferenceById(dto.getId());
-  }
+  public boolean cancel(Long schedulingId, SchedulingDtoDelete dto) throws Exception {
 
+    if (!schedulingRepository.existsByIdAndReasonCancellationIsNull(schedulingId))
+      return false;
+
+    var scheduling = schedulingRepository.getReferenceById(schedulingId);
+    schedulingDeleteValidator.forEach(v -> {
+      v.validate(scheduling);
+    });
+    scheduling.cancel(dto.getReasonCancellation());
+
+    return true;
+  }
 
   private Professional chooseProfessional(SchedulingDtoCreate dto)
       throws SchedulingValidationException {
@@ -72,13 +88,9 @@ public class SchedulingService {
         professionalRepository.findByServiceProvidedAndActiveTrue(dto.getServiceProvided());
 
     List<Professional> availableProfessionals = professionals.stream()
-        .filter(p -> !schedulingRepository.existsByProfessionalIdAndServiceDate(p.getId(),
+        .filter(p -> !schedulingRepository.existsByProfessionalIdAndServiceDateAndReasonCancellationIsNull(p.getId(),
             dto.getServiceDate()))
         .collect(Collectors.toList());
-
-    if (availableProfessionals.isEmpty())
-      throw new SchedulingValidationException(
-          "There are no professionals available for scheduling.");
 
     Random rand = new Random();
 

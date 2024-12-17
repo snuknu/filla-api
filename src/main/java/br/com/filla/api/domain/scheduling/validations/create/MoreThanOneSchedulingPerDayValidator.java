@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.scheduling.validations;
+package br.com.filla.api.domain.scheduling.validations.create;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7,7 +7,7 @@ import br.com.filla.api.domain.scheduling.SchedulingDtoCreate;
 import br.com.filla.api.domain.scheduling.SchedulingRepository;
 
 @Component
-public class MoreThanOneSchedulingPerDayValidator implements SchedulingValidator {
+public class MoreThanOneSchedulingPerDayValidator implements SchedulingCreateValidator {
 
   private static final int DURATION_OF_APPOINTMENT = 1;
   private static final int FIRST_TIME = 7;

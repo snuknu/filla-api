@@ -5,9 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SchedulingRepository extends JpaRepository<Scheduling, Long> {
 
+  boolean existsByIdAndReasonCancellationIsNull(Long id);
+
   boolean existsByCustomerIdAndServiceDateBetween(Long professionalId, LocalDateTime firstTime,
       LocalDateTime lastTime);
 
-  boolean existsByProfessionalIdAndServiceDate(Long professionalId, LocalDateTime serviceDate);
+  boolean existsByProfessionalIdAndServiceDateAndReasonCancellationIsNull(Long professionalId, LocalDateTime serviceDate);
 
 }

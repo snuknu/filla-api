@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.scheduling.validations;
+package br.com.filla.api.domain.scheduling.validations.create;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +9,7 @@ import br.com.filla.api.domain.scheduling.SchedulingRepository;
 
 
 @Component
-public class SchedulingConflictValidator implements SchedulingValidator {
+public class SchedulingConflictValidator implements SchedulingCreateValidator {
 
   @Autowired
   private SchedulingRepository schedulingRepository;
@@ -17,7 +17,8 @@ public class SchedulingConflictValidator implements SchedulingValidator {
   @Override
   public void validate(SchedulingDtoCreate dto) {
     var hasSchedulingConflict = schedulingRepository
-        .existsByProfessionalIdAndServiceDate(dto.getProfessionalId(), dto.getServiceDate());
+        .existsByProfessionalIdAndServiceDateAndReasonCancellationIsNull(
+            dto.getProfessionalId(), dto.getServiceDate());
 
     if (hasSchedulingConflict)
       throw new SchedulingValidationException(

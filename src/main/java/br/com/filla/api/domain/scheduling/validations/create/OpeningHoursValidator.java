@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.scheduling.validations;
+package br.com.filla.api.domain.scheduling.validations.create;
 
 import java.time.DayOfWeek;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import br.com.filla.api.config.exception.SchedulingValidationException;
 import br.com.filla.api.domain.scheduling.SchedulingDtoCreate;
 
 @Component
-public class OpeningHoursValidator implements SchedulingValidator {
+public class OpeningHoursValidator implements SchedulingCreateValidator {
 
   private static final int OPENING_TIME = 7;
   private static final int CLOSING_TIME = 19;

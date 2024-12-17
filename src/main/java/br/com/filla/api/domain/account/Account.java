@@ -35,6 +35,8 @@ public class Account implements UserDetails {
   private String username;
   private String password;
 
+  private Boolean active;
+  
   public Account(AccountDtoUpdate dto) {
     this.username = dto.getUsername();
     this.password = dto.getPassword();
@@ -50,6 +52,11 @@ public class Account implements UserDetails {
     authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
     authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
     return authorities;
+  }
+
+  public void disable() {
+    this.active = Boolean.FALSE;
+    
   }
 
 }

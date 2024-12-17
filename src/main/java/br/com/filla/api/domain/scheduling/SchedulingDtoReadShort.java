@@ -1,9 +1,7 @@
 package br.com.filla.api.domain.scheduling;
 
 import java.time.LocalDateTime;
-import br.com.filla.api.domain.customer.CustomerDtoRead;
 import br.com.filla.api.domain.customer.CustomerDtoReadShort;
-import br.com.filla.api.domain.professional.ProfessionalDtoRead;
 import br.com.filla.api.domain.professional.ProfessionalDtoReadShort;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

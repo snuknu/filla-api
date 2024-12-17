@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.scheduling.validations;
+package br.com.filla.api.domain.scheduling.validations.create;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -7,7 +7,7 @@ import br.com.filla.api.config.exception.SchedulingValidationException;
 import br.com.filla.api.domain.scheduling.SchedulingDtoCreate;
 
 @Component
-public class HoursInAdvanceValidator implements SchedulingValidator {
+public class HoursInAdvanceValidator implements SchedulingCreateValidator {
 
   private static final int SHORTEST_TIME_IN_ADVANCE = 30;
 

@@ -1,6 +1,6 @@
 package br.com.filla.api.domain.account;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +11,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountDtoUpdate {
+public class AccountDtoCreate {
 
-  @NotNull
-  private Long id;
-
+  @NotBlank
   private String username;
+
+  @NotBlank
   private String password;
 
 }

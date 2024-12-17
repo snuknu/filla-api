@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,14 +17,15 @@ import br.com.filla.api.domain.scheduling.SchedulingDtoCreate;
 import br.com.filla.api.domain.scheduling.SchedulingDtoDelete;
 import br.com.filla.api.domain.scheduling.SchedulingDtoRead;
 import br.com.filla.api.domain.scheduling.SchedulingDtoReadShort;
-import br.com.filla.api.domain.scheduling.SchedulingDtoUpdate;
 import br.com.filla.api.domain.scheduling.SchedulingRepository;
 import br.com.filla.api.domain.scheduling.SchedulingService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("scheduling")
+@SecurityRequirement(name = "bearer-key")
 public class SchedulingController {
 
   @Autowired
@@ -50,7 +50,7 @@ public class SchedulingController {
     var page = schedulingRepository.findAll(pageable).map(SchedulingDtoRead::new);
     return ResponseEntity.ok(page);
   }
-  
+
   @GetMapping("short")
   public ResponseEntity<Page<SchedulingDtoReadShort>> readShort(Pageable pageable) {
     var page = schedulingRepository.findAll(pageable).map(SchedulingDtoReadShort::new);
@@ -64,31 +64,14 @@ public class SchedulingController {
     return ResponseEntity.ok(new SchedulingDtoRead(entity));
   }
 
-  @PutMapping
-  @Transactional
-  public ResponseEntity<SchedulingDtoRead> update(@RequestBody @Valid SchedulingDtoUpdate dto)
-      throws Exception {
-
-    if (!schedulingRepository.existsById(dto.getId()))
-      return ResponseEntity.notFound().build();
-
-    var entity = schedulingService.reschedule(dto);
-
-    return ResponseEntity.ok(new SchedulingDtoRead(entity));
-  }
-
-
   @DeleteMapping("/{id}")
   @Transactional
   public ResponseEntity<?> delete(@PathVariable Long id,
-      @RequestBody @Valid SchedulingDtoDelete dto) {
+      @RequestBody @Valid SchedulingDtoDelete dto) throws Exception {
 
-    if (!schedulingRepository.existsById(id))
-      return ResponseEntity.notFound().build();
+    if (schedulingService.cancel(id, dto))
+      return ResponseEntity.noContent().build();
 
-    var scheduling = schedulingRepository.getReferenceById(id);
-    scheduling.cancel(dto.getReasonCancellation());
-
-    return ResponseEntity.noContent().build();
+    return ResponseEntity.notFound().build();
   }
 }

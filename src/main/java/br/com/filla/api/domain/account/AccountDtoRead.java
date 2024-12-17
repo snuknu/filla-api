@@ -12,12 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 public class AccountDtoRead {
 
+  private Long id;
   private String username;
-  private String password;
+
 
   public AccountDtoRead(Account entity) {
+    this.id = entity.getId();
     this.username = entity.getUsername();
-    this.password = entity.getPassword();
   }
 
 }

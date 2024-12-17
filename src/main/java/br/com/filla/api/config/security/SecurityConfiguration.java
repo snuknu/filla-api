@@ -21,6 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
+  private static final String[] AUTH_WHITELIST = {
+      // -- Swagger UI v3 (OpenAPI)
+      "/v3/api-docs/**",
+      "/swagger-ui/**",
+      "/swagger-ui.html"};
+
   @Autowired
   private SecurityFilterApplication securityFilter;
 
@@ -28,8 +34,10 @@ public class SecurityConfiguration {
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http
         .csrf(AbstractHttpConfigurer::disable)
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .sessionManagement(
+            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests((authorize) -> authorize
+            .requestMatchers(AUTH_WHITELIST).permitAll()
             .requestMatchers(HttpMethod.GET, "/info").permitAll()
             .requestMatchers(HttpMethod.POST, "/login").permitAll()
             .requestMatchers(HttpMethod.DELETE, "/professional").hasRole("ADMIN")

@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.scheduling.validations;
+package br.com.filla.api.domain.scheduling.validations.create;
 
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import br.com.filla.api.domain.customer.CustomerRepository;
 import br.com.filla.api.domain.scheduling.SchedulingDtoCreate;
 
 @Component
-public class ActiveProfessionalValidator implements SchedulingValidator {
+public class ActiveProfessionalValidator implements SchedulingCreateValidator {
 
   @Autowired
   private CustomerRepository professionalRepository;

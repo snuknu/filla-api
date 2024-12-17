@@ -1,5 +1,6 @@
 package br.com.filla.api.controller;
 
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,11 +21,14 @@ import br.com.filla.api.domain.professional.ProfessionalDtoRead;
 import br.com.filla.api.domain.professional.ProfessionalDtoReadShort;
 import br.com.filla.api.domain.professional.ProfessionalDtoUpdate;
 import br.com.filla.api.domain.professional.ProfessionalRepository;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("professional")
+@SecurityRequirement(name = "bearer-key")
 public class ProfessionalController {
 
   @Autowired
@@ -41,14 +45,17 @@ public class ProfessionalController {
   }
 
   @GetMapping
-  public ResponseEntity<Page<ProfessionalDtoRead>> read(Pageable pageable) {
+  @PageableAsQueryParam
+  public ResponseEntity<Page<ProfessionalDtoRead>> read(
+      @Parameter(hidden = true) @PageableDefault(size = 10, page = 0, sort = {"id"}) Pageable pageable) {
     var page = repository.findAll(pageable).map(ProfessionalDtoRead::new);
     return ResponseEntity.ok(page);
   }
 
   @GetMapping(path = "/short")
+  @PageableAsQueryParam
   public ResponseEntity<Page<ProfessionalDtoReadShort>> readShort(
-      @PageableDefault(size = 6, page = 0, sort = {"id"}) Pageable pageable) {
+      @Parameter(hidden = true) @PageableDefault(size = 10, page = 0, sort = {"id"}) Pageable pageable) {
     var page = repository.findAllByActiveTrue(pageable).map(ProfessionalDtoReadShort::new);
     return ResponseEntity.ok(page);
   }

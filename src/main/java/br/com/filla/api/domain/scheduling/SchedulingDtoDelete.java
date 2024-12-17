@@ -12,7 +12,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SchedulingDtoDelete {
-
+  
   @NotNull
   private ReasonCancellation reasonCancellation;
 
