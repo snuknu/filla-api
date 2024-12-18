@@ -17,6 +17,8 @@ import br.com.filla.api.domain.account.Account;
 public class TokenManagerService {
 
   private static final String ISSUER = "API Filla";
+  private static final String ZONE_OFF_SET = "-03:00";
+  private static final int TOKEN_LIFETIME = 8;
 
   @Value("${api.security.token.secret}")
   private String secret;
@@ -43,7 +45,7 @@ public class TokenManagerService {
 
     try {
       Algorithm algorithm = Algorithm.HMAC256(secret);
-      
+
       JWTVerifier verifier = JWT
           .require(algorithm)
           .withIssuer(ISSUER)
@@ -59,7 +61,8 @@ public class TokenManagerService {
   }
 
   private Instant expirationDate() {
-    return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+    return LocalDateTime.now().plusHours(TOKEN_LIFETIME)
+        .toInstant(ZoneOffset.of(ZONE_OFF_SET));
   }
 
 }

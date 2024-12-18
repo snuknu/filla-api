@@ -14,11 +14,13 @@ public class AccountDtoRead {
 
   private Long id;
   private String username;
+  private Boolean active;
 
 
   public AccountDtoRead(Account entity) {
     this.id = entity.getId();
     this.username = entity.getUsername();
+    this.active = entity.getActive();
   }
 
 }

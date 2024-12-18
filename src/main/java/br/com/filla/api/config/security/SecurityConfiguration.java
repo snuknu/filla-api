@@ -21,8 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity(securedEnabled = true)
 public class SecurityConfiguration {
 
-  private static final String[] AUTH_WHITELIST = {
-      // -- Swagger UI v3 (OpenAPI)
+  private static final String[] AUTH_SWAGGER = {
       "/v3/api-docs/**",
       "/swagger-ui/**",
       "/swagger-ui.html"};
@@ -37,7 +36,7 @@ public class SecurityConfiguration {
         .sessionManagement(
             session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests((authorize) -> authorize
-            .requestMatchers(AUTH_WHITELIST).permitAll()
+            .requestMatchers(AUTH_SWAGGER).permitAll()
             .requestMatchers(HttpMethod.GET, "/info").permitAll()
             .requestMatchers(HttpMethod.POST, "/login").permitAll()
             .requestMatchers(HttpMethod.DELETE, "/professional").hasRole("ADMIN")

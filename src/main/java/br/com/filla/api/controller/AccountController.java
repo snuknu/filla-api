@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 import br.com.filla.api.domain.account.Account;
+import br.com.filla.api.domain.account.AccountDtoCreate;
 import br.com.filla.api.domain.account.AccountDtoRead;
 import br.com.filla.api.domain.account.AccountDtoUpdate;
 import br.com.filla.api.domain.account.AccountRepository;
@@ -35,7 +36,7 @@ public class AccountController {
 
   @PostMapping
   @Transactional
-  public ResponseEntity<AccountDtoRead> create(@RequestBody @Valid AccountDtoUpdate dto,
+  public ResponseEntity<AccountDtoRead> create(@RequestBody @Valid AccountDtoCreate dto,
       UriComponentsBuilder uriBuilder) {
     
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -48,8 +49,6 @@ public class AccountController {
     return ResponseEntity.created(uri).body(new AccountDtoRead(entity));
 
   }
-
-
   
   @GetMapping
   @PageableAsQueryParam

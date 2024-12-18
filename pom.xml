@@ -13,7 +13,7 @@
 	<artifactId>api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>filla-api</name>
-	<description>Reference API for a virtual service queue.</description>
+	<description>Reference API for a generic scheduling application.</description>
 	<url/>
 	<licenses>
 		<license/>

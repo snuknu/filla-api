@@ -37,13 +37,16 @@ public class Account implements UserDetails {
 
   private Boolean active;
   
-  public Account(AccountDtoUpdate dto) {
+  public Account(AccountDtoCreate dto) {
     this.username = dto.getUsername();
     this.password = dto.getPassword();
+    this.active = Boolean.TRUE;
   }
-
+  
   public void update(AccountDtoUpdate dto) {
+    this.id = dto.getId();
     Optional.ofNullable(dto.getPassword()).ifPresent(value -> this.password = value);
+    Optional.ofNullable(dto.getUsername()).ifPresent(value -> this.password = value);
   }
 
   @Override

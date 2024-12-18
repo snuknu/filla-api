@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.filla.api.config.security.TokenJwtDtoRead;
 import br.com.filla.api.config.security.TokenManagerService;
 import br.com.filla.api.domain.account.Account;
-import br.com.filla.api.domain.account.AccountDtoUpdate;
+import br.com.filla.api.domain.account.AccountDtoCreate;
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,7 +25,7 @@ public class AuthenticationController {
   private TokenManagerService tokenService;
 
   @PostMapping
-  public ResponseEntity<TokenJwtDtoRead> login(@RequestBody @Valid AccountDtoUpdate account) {
+  public ResponseEntity<TokenJwtDtoRead> login(@RequestBody @Valid AccountDtoCreate account) {
 
     var authenticationToken = new UsernamePasswordAuthenticationToken(
         account.getUsername(),

@@ -3,8 +3,6 @@ package br.com.filla.api.domain.scheduling;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.filla.api.config.exception.SchedulingValidationException;
@@ -76,27 +74,15 @@ public class SchedulingService {
   private Professional chooseProfessional(SchedulingDtoCreate dto)
       throws SchedulingValidationException {
 
-    if (Objects.nonNull(dto.getProfessionalId())) {
+    if (Objects.nonNull(dto.getProfessionalId()))
       return professionalRepository.findById(dto.getProfessionalId()).get();
-    }
 
     if (Objects.isNull(dto.getServiceProvided()))
       throw new SchedulingValidationException(
           "The type of service provided is mandatory when the professional is not informed.");
 
-    List<Professional> professionals =
-        professionalRepository.findByServiceProvidedAndActiveTrue(dto.getServiceProvided());
-
-    List<Professional> availableProfessionals = professionals.stream()
-        .filter(p -> !schedulingRepository.existsByProfessionalIdAndServiceDateAndReasonCancellationIsNull(p.getId(),
-            dto.getServiceDate()))
-        .collect(Collectors.toList());
-
-    Random rand = new Random();
-
-    return !availableProfessionals.isEmpty()
-        ? availableProfessionals.get(rand.nextInt(availableProfessionals.size()))
-        : null;
+    return professionalRepository.findFreeRandomProfessionalOnDate(dto.getServiceProvided(),
+        dto.getServiceDate());
   }
 
 }
