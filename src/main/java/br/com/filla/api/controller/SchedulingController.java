@@ -36,13 +36,13 @@ public class SchedulingController {
 
   @PostMapping
   @Transactional
-  public ResponseEntity<SchedulingDtoReadShort> create(@RequestBody @Valid SchedulingDtoCreate dto,
+  public ResponseEntity<SchedulingDtoRead> create(@RequestBody @Valid SchedulingDtoCreate dto,
       UriComponentsBuilder uriBuilder) throws Exception {
 
     Scheduling scheduling = schedulingService.schedule(dto);
 
     var uri = uriBuilder.path("/scheduling/{id}").buildAndExpand(scheduling.getId()).toUri();
-    return ResponseEntity.created(uri).body(new SchedulingDtoReadShort(scheduling));
+    return ResponseEntity.created(uri).body(new SchedulingDtoRead(scheduling));
   }
 
   @GetMapping
