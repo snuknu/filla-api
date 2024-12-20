@@ -1,9 +1,8 @@
 package br.com.filla.api.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,8 +23,6 @@ import br.com.filla.api.domain.professional.ProfessionalDtoCreate;
 import br.com.filla.api.domain.professional.ProfessionalDtoRead;
 import br.com.filla.api.domain.professional.ProfessionalRepository;
 import br.com.filla.api.domain.professional.ServiceProvided;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 
 @SpringBootTest
 @AutoConfigureMockMvc
