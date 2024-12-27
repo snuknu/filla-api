@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.account;
+package br.com.filla.api.domain.authorization.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

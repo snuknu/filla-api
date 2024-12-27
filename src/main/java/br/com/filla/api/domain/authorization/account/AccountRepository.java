@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.account;
+package br.com.filla.api.domain.authorization.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -11,7 +11,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import br.com.filla.api.domain.account.Account;
+import br.com.filla.api.domain.authorization.account.Account;
 
 @Service
 public class TokenManagerService {

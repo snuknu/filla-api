@@ -1,4 +1,4 @@
-package br.com.filla.api.domain.account;
+package br.com.filla.api.domain.authorization.account;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

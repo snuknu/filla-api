@@ -1,6 +1,6 @@
-package br.com.filla.api.domain.account;
+package br.com.filla.api.domain.authorization.role;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +11,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountDtoUpdate {
+public class RoleDtoWrite {
 
-  @NotNull
   private Long id;
 
-  private String username;
-  private String password;
+  @NotBlank
+  private String name;
 
 }
